@@ -25,6 +25,11 @@ This Ansible project aims to automate the deployment of a web project developed 
         - handlers/main.yml
         - tasks/main.yml
         - templates/
+    - prepare_wordpress/
+        - defaults/main.yml
+        - files/wordpress-6.4.3-fr_FR.tar.gz
+        - tasks/main.yml
+        - templates/
 - inventory.yml
 - playbook.yml
 - requirements.txt
