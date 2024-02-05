@@ -1,0 +1,17 @@
+---
+# MySQL settings
+db_name: wordpress_db
+db_user: wordpress_user
+db_password: wordpress_password
+db_root_password: db_root_password
+db_host: localhost
+
+# Security keys
+auth_key: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+secure_auth_key: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+logged_in_key: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+nonce_key: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+auth_salt: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+secure_auth_salt: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+logged_in_salt: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
+nonce_salt: "{{ lookup('password', '/dev/null length=64 chars=ascii_letters,digits,~!@#$%^&*_-+=`|(){}[]:;<>,.?/') }}"
