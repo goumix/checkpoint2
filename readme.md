@@ -2,41 +2,44 @@
 
 This Ansible project aims to automate the deployment of a web project developed in PHP using the Wordpress CMS.
 
-## Structure 
+## Structure
 
-- roles/
-    - prepare_db_server/
-        - defaults/main.yml
-        - handlers/main.yml
-        - tasks/main.yml
-        - templates/
-    - prepare_docker/
-        - defaults/main.yml
-        - handlers/main.yml
-        - tasks/main.yml
-        - templates/
-    - prepare_http_server/
-        - defaults/main.yml
-        - handlers/main.yml
-        - tasks/main.yml
-        - templates/
-    - prepare_php/
-        - defaults/main.yml
-        - handlers/main.yml
-        - tasks/main.yml
-        - templates/
-    - prepare_wordpress/
-        - defaults/main.yml
-        - files/wordpress-6.4.3-fr_FR.tar.gz
-        - tasks/main.yml
-        - templates/
-- inventory.yml
-- playbook.yml
-- requirements.txt
+- auto-deploy-webapp/
+    - roles/
+        - prepare_db_server/
+            - defaults/main.yml
+            - handlers/main.yml
+            - tasks/main.yml
+            - templates/
+        - prepare_docker/
+            - defaults/main.yml
+            - handlers/main.yml
+            - tasks/main.yml
+            - templates/
+        - prepare_http_server/
+            - defaults/main.yml
+            - handlers/main.yml
+            - tasks/main.yml
+            - templates/
+        - prepare_php/
+            - defaults/main.yml
+            - handlers/main.yml
+            - tasks/main.yml
+            - templates/
+        - prepare_wordpress/
+            - defaults/main.yml
+            - files/wordpress-6.4.3-fr_FR.tar.gz
+            - tasks/main.yml
+            - templates/
+    - inventory.yml
+    - playbook.yml
+    - requirements.txt
+- .gitignore
+- README.md
 
 ## Control node
 
-Before started, you need to have:
+Before starting, you need to have:
 
 - Python3 (>=3.11)
 - pip (>=23.2.1)
@@ -57,20 +60,25 @@ source .venv/bin/activate
 Install the required python module into the venv:
 
 ```bash
-python3 -m pip install requirements.txt
+python3 -m pip install -r auto-deploy-webapp/requirements.txt
 ```
 
-You're now ready to go! 
+You're now ready to go!
 
-## Roles 
+## Roles
 
 ### prepare_docker
 
+This role aims to install and configure Docker on the target system. It includes:
+- Installation of Docker and Docker Compose
+- Configuration of Docker daemon
+- Setting up Docker user permissions
+
 ### prepare_http_server
 
-This role aims to install the HTTP Server Apache2.
+This role aims to install and configure the HTTP Server Apache2.
 
-To do this, it is necessary to install the following packages: 
+To do this, it is necessary to install the following packages:
 - apache2
 
 After installation, some modules will be necessary:
@@ -81,7 +89,7 @@ After installation, some modules will be necessary:
 
 This role aims to install the PHP scripting language, compatible with the WordPress CMS.
 
-To do this, it is necessary to install the following packages: 
+To do this, it is necessary to install the following packages:
 - php8.2
 - php8.2-bcmath
 - php8.2-bz2
@@ -100,3 +108,25 @@ To do this, it is necessary to install the following packages:
 ### prepare_db_server
 
 This role aims to install a MariaDB database server running on a Docker container, using the official MariaDB image, version 11.2.2.
+
+### prepare_wordpress
+
+This role handles the installation and configuration of WordPress, including:
+- Downloading and extracting WordPress
+- Configuring WordPress settings
+- Setting up the database connection
+- Configuring security settings
+
+## Usage
+
+To deploy the project, run the following command from the project root:
+
+```bash
+ansible-playbook -i auto-deploy-webapp/inventory.yml auto-deploy-webapp/playbook.yml
+```
+
+## Security Considerations
+
+- All sensitive information should be stored in the `ansible/vault.yml` file
+- The vault password should be kept secure and not committed to the repository
+- Regular security updates should be applied to all components
