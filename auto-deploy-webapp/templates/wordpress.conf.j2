@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot {{ wordpress_path }}
+
+    <Directory {{ wordpress_path }}>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/wordpress-error.log
+    CustomLog ${APACHE_LOG_DIR}/wordpress-access.log combined
+
+    # Enable HTTP/2
+    Protocols h2 http/1.1
+
+    # Security headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</VirtualHost>

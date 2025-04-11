@@ -1,1 +1,21 @@
 ---
+- name: Pull MariaDB image
+  docker_image:
+    name: mariadb:11.2.2
+    source: pull
+
+- name: Create MariaDB container
+  docker_container:
+    name: mariadb
+    image: mariadb:11.2.2
+    state: started
+    restart_policy: always
+    env:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql

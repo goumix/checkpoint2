@@ -1,1 +1,30 @@
 ---
+- name: Add PHP repository
+  apt_repository:
+    repo: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+    state: present
+    filename: php.list
+    key_url: "https://packages.sury.org/php/apt.gpg"
+
+- name: Install PHP 8.2 and required modules
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - php8.2
+    - php8.2-cli
+    - php8.2-fpm
+    - php8.2-mysql
+    - php8.2-curl
+    - php8.2-gd
+    - php8.2-mbstring
+    - php8.2-xml
+    - php8.2-zip
+  notify: restart php-fpm
+
+- name: Ensure PHP-FPM is running and enabled
+  service:
+    name: php8.2-fpm
+    state: started
+    enabled: yes
